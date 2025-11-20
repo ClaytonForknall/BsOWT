@@ -4,16 +4,12 @@
 \alias{BsOWT}
 \title{Generate B-spline wavelet transform matrix}
 \usage{
-BsOWT(x = NULL, type = NULL, calc.wave.coeff = FALSE, y = NULL)
+BsOWT(x = NULL, type = NULL)
 }
 \arguments{
 \item{x}{Vector corresponding to a quantitative explanatory variable}
 
 \item{type}{Character string specifying the type of B-spline wavelet, being one of `haar`, `linear` or `cubic`}
-
-\item{calc.wave.coeff}{Binary. Specifying whether to calculate the corresponding wavelet coefficients for a given response variable `y`}
-
-\item{y}{Optional. Response variable used to calculate the wavelet coefficients}
 }
 \value{
 List of output. `W.tilde` contains the wavelet transform matrix
