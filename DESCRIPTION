@@ -14,7 +14,7 @@ Description: Builds the wavelet transform matrix (W) corresponding to a
     matrix, as detailed in Jansen (2016)
     (https://doi.org/10.1142/S0219691316500569) and Jansen (2022)
     (Wavelets from a Statistical Perspective textbook, CRC Press).
-License: What license is it under?
+License: MIT + file LICENSE
 Imports: 
     Matrix (>= 1.7.3)
 Encoding: UTF-8

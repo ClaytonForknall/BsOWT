@@ -2,9 +2,7 @@
 #'
 #' This function generates the B-spline wavelet transform matrix. It requires
 #' the user to specify a quantitative explanatory variable, along with the type
-#' of B-spline wavelet (one of `haar`, `linear` or `cubic`). Additionally,
-#' optional options include whether to calculate the corresponding wavelet
-#' coefficients for a given response variable.
+#' of B-spline wavelet (one of `haar`, `linear` or `cubic`).
 #'
 #' @param x Vector corresponding to a quantitative explanatory variable
 #' @param type Character string specifying the type of B-spline wavelet, being one of `haar`, `linear` or `cubic`
