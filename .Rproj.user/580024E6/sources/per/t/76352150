@@ -3,7 +3,7 @@
     "path": "~/PhD/Orthogonal B-spline Wavelet Transform/BsOWT/R/BsOWT.R",
     "project_path": "R/BsOWT.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "919655177",
     "contents": "",
     "dirty": false,
     "created": 1763607297491.0,
@@ -12,8 +12,8 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "9,36",
-        "scrollLine": "0"
+        "cursorPosition": "15,20",
+        "scrollLine": "8"
     },
     "folds": "",
     "lastKnownWriteTime": 1763613777,
