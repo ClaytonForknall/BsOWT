@@ -1,0 +1,2 @@
+temp <- BsOWT(x = , type = "cubic")
+temp$W.tilde
