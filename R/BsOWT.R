@@ -57,8 +57,6 @@ BsOWT <- function(x = NULL, type = NULL){
   G.tilde_j.list <- vector(mode = "list", length = J+1)
   V_j.list <- vector(mode = "list", length = J+1)
   V.tilde_j.list <- vector(mode = "list", length = J+1)
-  M_j.list <- vector(mode = "list", length = J+1)
-  O_j.list <- vector(mode = "list", length = J+1)
   upsilon_j.list <- vector(mode = "list", length = J+1)
   sol.upsilon_j.list <- vector(mode = "list", length = J+1)
   W.tilde_j.disjoint <- vector(mode = "list", length = J+1)
@@ -245,49 +243,11 @@ BsOWT <- function(x = NULL, type = NULL){
       V.tilde_j.list[[j+1]] <- eval(parse(text=temp.V.tilde_j.expr))
     }
 
-    ##now calculate the moments of the spline function
-    ##this calculation only has to be done once, when j==J+1
-    ##however, the moments vary for the different spline functions
-    if(j==J+1){
-      if(type == "haar"){
-        ##haar moments, obtained from Mathematica
-        ##we're assuming there are one vanishing moment for the haar wavelet
-        m0.vec <- (xx_j[names(xx_j) %in% (1:n_j[[j]]-1+1)] - xx_j[names(xx_j) %in% (1:n_j[[j]]-1)])
-        M_j.list[[j+1]] <- matrix(m0.vec, nrow=length(m0.vec))
-
-      } else if(type == "linear"){
-        ##linear moments, obtained from Mathematica
-        ##we're assuming there are two vanishing moments
-        m0.vec <- (xx_j[names(xx_j) %in% (1:n_j[[j]]-1+1)] - xx_j[names(xx_j) %in% (1:n_j[[j]]-1-1)])/2
-        m1.vec <- (xx_j[names(xx_j) %in% (1:n_j[[j]]-1+1)] - xx_j[names(xx_j) %in% (1:n_j[[j]]-1-1)])*(xx_j[names(xx_j) %in% (1:n_j[[j]]-1-1)] + xx_j[names(xx_j) %in% (1:n_j[[j]]-1)] +
-                                                                                                         xx_j[names(xx_j) %in% (1:n_j[[j]]-1+1)])/6
-        M_j.list[[j+1]] <- cbind(m0.vec, m1.vec)
-
-      }else{
-        ##cubic moments, obtained from Mathematica
-        ##we're assuming there are two vanishing moments
-        m0.vec <- (xx_j[names(xx_j) %in% (1:n_j[[j]]-1+2)] - xx_j[names(xx_j) %in% (1:n_j[[j]]-1-2)])/4
-        m1.vec <- (xx_j[names(xx_j) %in% (1:n_j[[j]]-1+2)] - xx_j[names(xx_j) %in% (1:n_j[[j]]-1-2)])*(xx_j[names(xx_j) %in% (1:n_j[[j]]-1-2)] + xx_j[names(xx_j) %in% (1:n_j[[j]]-1-1)] +
-                                                                                                         xx_j[names(xx_j) %in% (1:n_j[[j]]-1)] + xx_j[names(xx_j) %in% (1:n_j[[j]]-1+1)] +
-                                                                                                         xx_j[names(xx_j) %in% (1:n_j[[j]]-1+2)])/20
-        M_j.list[[j+1]] <- cbind(m0.vec, m1.vec)
-      }
-    }
-
-    ##now define the M_j and O_j matrices at the current level j
-    M_j.list[[j]] <- Matrix::Matrix(Matrix::t(H_j.list[[j]]) %*% M_j.list[[j+1]], sparse = TRUE)
-    O_j.list[[j]] <- Matrix::Matrix(Matrix::t(G_j.list[[j]]) %*% M_j.list[[j+1]], sparse = TRUE)
-
     #####################################
     #####################################
     ### ORTHOGONAL APPROACH ###
     #####################################
     #####################################
-
-    ##setting up another if statement to handle the situation where orthog == TRUE
-    ##in this case, we don't impose the constraint associated with the number of vanishing moments or n.bands
-    ##this will result in a potentially dense upsilon and in turn W matrix, but we'll have orthogonal basis functions
-    ##the limitation of this approach seems to be that if the basis functions are being built for non-equidistant data, then this is not accounted for in the method
 
     if(orthog == TRUE){
 
@@ -378,8 +338,6 @@ BsOWT <- function(x = NULL, type = NULL){
                          "G.tilde_j" = G.tilde_j.list,
                          "V_j" = V_j.list,
                          "V.tilde_j" = V.tilde_j.list,
-                         "M_j" = M_j.list,
-                         "O_j" = O_j.list,
                          "sol.upsilon_j" = sol.upsilon_j.list,
                          "W.tilde_j"= W.tilde_j.expand,
                          "W.tilde"= W.tilde)
